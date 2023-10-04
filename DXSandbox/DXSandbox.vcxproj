@@ -69,8 +69,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="HResultException.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ErrorHandling.hpp" />
+    <ClInclude Include="HResultException.hpp" />
     <ClInclude Include="WindowsPlatform.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

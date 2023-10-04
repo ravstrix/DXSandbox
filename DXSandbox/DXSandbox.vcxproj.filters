@@ -2,8 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="HResultException.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsPlatform.hpp" />
+    <ClInclude Include="ErrorHandling.hpp" />
+    <ClInclude Include="HResultException.hpp" />
   </ItemGroup>
 </Project>
