@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WindowsPlatform.hpp" />
+  </ItemGroup>
 </Project>
