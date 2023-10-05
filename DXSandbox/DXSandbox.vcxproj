@@ -68,12 +68,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="HResultException.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.hpp" />
     <ClInclude Include="ErrorHandling.hpp" />
     <ClInclude Include="HResultException.hpp" />
+    <ClInclude Include="IWindowPresenter.hpp" />
+    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="WindowClass.hpp" />
     <ClInclude Include="WindowsPlatform.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
