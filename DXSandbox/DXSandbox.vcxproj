@@ -69,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="HResultException.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -76,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Debug.hpp" />
     <ClInclude Include="ErrorHandling.hpp" />
     <ClInclude Include="HResultException.hpp" />
     <ClInclude Include="IWindowPresenter.hpp" />
