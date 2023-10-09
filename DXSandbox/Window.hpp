@@ -36,6 +36,8 @@ namespace DXSandbox
         void OnClose();
         void OnDestroy() noexcept;
 
+        void InvalidateHandle() noexcept;
+
         DWORD GetStyle() const;
 
     private:

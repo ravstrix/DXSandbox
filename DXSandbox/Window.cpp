@@ -85,10 +85,8 @@ namespace DXSandbox
 
     Window::~Window()
     {
-        assert(IsWindow(m_hWnd));
-
         [[maybe_unused]]
-        const BOOL isDestroyed = DestroyWindow(m_hWnd);
+        const BOOL isDestroyed = DestroyWindow(Handle());
 
         assert(isDestroyed && !m_hWnd);
     }
@@ -102,30 +100,22 @@ namespace DXSandbox
 
     void Window::Show()
     {
-        assert(IsWindow(m_hWnd));
-
-        ShowWindow(m_hWnd, SW_NORMAL);
+        ShowWindow(Handle(), SW_NORMAL);
     }
 
     void Window::Hide()
     {
-        assert(IsWindow(m_hWnd));
-
-        ShowWindow(m_hWnd, SW_HIDE);
+        ShowWindow(Handle(), SW_HIDE);
     }
 
     void Window::SetForeground()
     {
-        assert(IsWindow(m_hWnd));
-
-        SetForegroundWindow(m_hWnd);
+        SetForegroundWindow(Handle());
     }
 
     void Window::Update()
     {
-        assert(IsWindow(m_hWnd));
-
-        UpdateWindow(m_hWnd);
+        UpdateWindow(Handle());
     }
 
     LRESULT CALLBACK Window::MessageHandlerPreCreate(HWND hWnd, UINT message,
@@ -195,15 +185,20 @@ namespace DXSandbox
     void Window::OnDestroy() noexcept
     {
         [[maybe_unused]]
-        const auto oldWindow = SetWindowPtr(m_hWnd, nullptr);
+        const auto oldWindow = SetWindowPtr(Handle(), nullptr);
 
         assert(oldWindow == this);
 
         [[maybe_unused]]
-        const auto oldWndProc = SetWindowProcedure(m_hWnd, DefWindowProcW);
+        const auto oldWndProc = SetWindowProcedure(Handle(), DefWindowProcW);
 
         assert(oldWndProc == Window::MessageHandler);
 
+        InvalidateHandle();
+    }
+
+    void Window::InvalidateHandle() noexcept
+    {
         m_hWnd = nullptr;
     }
 
@@ -211,7 +206,7 @@ namespace DXSandbox
     {
         SetLastError(ERROR_SUCCESS);
 
-        const LONG_PTR style = GetWindowLongPtrW(m_hWnd, GWL_STYLE);
+        const LONG_PTR style = GetWindowLongPtrW(Handle(), GWL_STYLE);
 
         if (!style && GetLastError() != ERROR_SUCCESS)
             ThrowLastError();
