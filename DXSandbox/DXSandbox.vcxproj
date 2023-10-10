@@ -72,6 +72,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="HResultException.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
@@ -81,6 +82,7 @@
     <ClInclude Include="ErrorHandling.hpp" />
     <ClInclude Include="HResultException.hpp" />
     <ClInclude Include="IWindowPresenter.hpp" />
+    <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="Window.hpp" />
     <ClInclude Include="WindowClass.hpp" />
     <ClInclude Include="WindowsPlatform.hpp" />

@@ -7,6 +7,7 @@
     <ClCompile Include="WindowClass.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsPlatform.hpp" />
@@ -17,5 +18,6 @@
     <ClInclude Include="WindowClass.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Debug.hpp" />
+    <ClInclude Include="StringUtils.hpp" />
   </ItemGroup>
 </Project>
