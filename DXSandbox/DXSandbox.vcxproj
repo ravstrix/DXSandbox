@@ -39,10 +39,12 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropertySheets\Build.props" />
+    <Import Project="..\PropertySheets\DirectX.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\PropertySheets\Build.props" />
+    <Import Project="..\PropertySheets\DirectX.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -71,6 +73,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="HResultException.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -78,8 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="ComPtr.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="ErrorHandling.hpp" />
+    <ClInclude Include="GraphicsSystem.hpp" />
     <ClInclude Include="HResultException.hpp" />
     <ClInclude Include="IWindowPresenter.hpp" />
     <ClInclude Include="StringUtils.hpp" />

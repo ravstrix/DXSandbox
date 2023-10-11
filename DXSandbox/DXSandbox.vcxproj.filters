@@ -8,6 +8,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsPlatform.hpp" />
@@ -19,5 +20,7 @@
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="StringUtils.hpp" />
+    <ClInclude Include="GraphicsSystem.hpp" />
+    <ClInclude Include="ComPtr.hpp" />
   </ItemGroup>
 </Project>

@@ -21,6 +21,8 @@ namespace DXSandbox
 
         HWND Handle() const noexcept;
 
+        POINT ClientSize() const;
+
         void Show();
         void Hide();
         void SetForeground();

@@ -98,6 +98,16 @@ namespace DXSandbox
         return m_hWnd;
     }
 
+    POINT Window::ClientSize() const
+    {
+        RECT clientRect;
+
+        if (!GetClientRect(Handle(), &clientRect))
+            ThrowLastError();
+
+        return RectSize(clientRect);
+    }
+
     void Window::Show()
     {
         ShowWindow(Handle(), SW_NORMAL);

@@ -1,5 +1,6 @@
 #include "Application.hpp"
 
+#include "GraphicsSystem.hpp"
 #include "Window.hpp"
 
 #include <cassert>
@@ -52,7 +53,9 @@ namespace DXSandbox
         assert(!m_window);
 
         IWindowPresenter& presenter = *this;
+
         m_window = std::make_unique<Window>(m_hInstance, presenter);
+        m_graphicsSystem = std::make_unique<GraphicsSystem>(*m_window);
 
         m_window->Show();
         m_window->SetForeground();
@@ -71,7 +74,7 @@ namespace DXSandbox
             if (IsExitRequested())
                 PostMainLoopQuitMessage();
 
-            WaitMessage();
+            m_graphicsSystem->Render();
         }
 
         assert(IsExitRequested());
@@ -109,7 +112,11 @@ namespace DXSandbox
 
     void Application::Shutdown()
     {
+        assert(m_window && m_graphicsSystem);
+
         m_window->Hide();
+
+        m_graphicsSystem = nullptr;
         m_window = nullptr;
     }
 }
