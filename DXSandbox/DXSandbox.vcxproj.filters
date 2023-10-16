@@ -9,6 +9,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="CommandLineArgs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsPlatform.hpp" />
@@ -22,5 +23,6 @@
     <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="GraphicsSystem.hpp" />
     <ClInclude Include="ComPtr.hpp" />
+    <ClInclude Include="CommandLineArgs.hpp" />
   </ItemGroup>
 </Project>

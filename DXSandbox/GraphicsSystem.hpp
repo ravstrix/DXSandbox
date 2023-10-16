@@ -24,16 +24,25 @@ namespace DXSandbox
     class GraphicsSystem final
     {
     public:
-        explicit GraphicsSystem(const Window& window);
+        struct InitParams final
+        {
+            HWND hWnd = nullptr;
+            UINT width = 0;
+            UINT height = 0;
+
+            bool enableDebugLayer = false;
+        };
+
+        explicit GraphicsSystem(const InitParams& params);
         ~GraphicsSystem();
 
         void Render();
 
     private:
-        void CreateFactory();
+        void CreateFactory(bool enableDebug);
         void CreateDevice();
         void CreateCommandQueue();
-        void CreateSwapChain(const Window& window);
+        void CreateSwapChain(const InitParams& params);
         void CreateCommandList();
         void CreateFence();
 

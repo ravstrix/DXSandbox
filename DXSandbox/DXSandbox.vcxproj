@@ -71,6 +71,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CommandLineArgs.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
@@ -81,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="CommandLineArgs.hpp" />
     <ClInclude Include="ComPtr.hpp" />
     <ClInclude Include="Debug.hpp" />
     <ClInclude Include="ErrorHandling.hpp" />

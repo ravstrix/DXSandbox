@@ -1,5 +1,6 @@
 #include "Application.hpp"
 
+#include "CommandLineArgs.hpp"
 #include "GraphicsSystem.hpp"
 #include "Window.hpp"
 
@@ -7,7 +8,9 @@
 
 namespace DXSandbox
 {
-    Application::Application(HINSTANCE hInstance) : m_hInstance{hInstance}
+    Application::Application(HINSTANCE hInstance, PWSTR commandLine)
+        : m_hInstance{hInstance}
+        , m_commandLineArgs{commandLine}
     {
     }
 
@@ -50,18 +53,40 @@ namespace DXSandbox
 
     void DXSandbox::Application::Startup()
     {
-        assert(!m_window);
-
-        IWindowPresenter& presenter = *this;
-
-        m_window = std::make_unique<Window>(m_hInstance, presenter);
-        m_graphicsSystem = std::make_unique<GraphicsSystem>(*m_window);
+        MakeWindow();
+        MakeGraphicsSystem();
 
         m_window->Show();
         m_window->SetForeground();
         m_window->Update();
 
         ProcessWindowMessages();
+    }
+
+    void Application::MakeWindow()
+    {
+        assert(!m_window);
+
+        IWindowPresenter& presenter = *this;
+
+        m_window = std::make_unique<Window>(m_hInstance, presenter);
+    }
+
+    void Application::MakeGraphicsSystem()
+    {
+        assert(m_window && !m_graphicsSystem);
+
+        const POINT size = m_window->ClientSize();
+
+        const GraphicsSystem::InitParams params =
+        {
+            .hWnd = m_window->Handle(),
+            .width = static_cast<UINT>(size.x),
+            .height = static_cast<UINT>(size.y),
+            .enableDebugLayer = m_commandLineArgs.Contains("--d3dEnableDebugLayer")
+        };
+
+        m_graphicsSystem = std::make_unique<GraphicsSystem>(params);
     }
 
     void Application::MainLoop()
@@ -112,11 +137,23 @@ namespace DXSandbox
 
     void Application::Shutdown()
     {
-        assert(m_window && m_graphicsSystem);
-
         m_window->Hide();
 
+        DestroyGraphicsSystem();
+        DestroyWindow();
+    }
+
+    void Application::DestroyGraphicsSystem()
+    {
+        assert(m_window && m_graphicsSystem);
+
         m_graphicsSystem = nullptr;
+    }
+
+    void Application::DestroyWindow()
+    {
+        assert(m_window);
+
         m_window = nullptr;
     }
 }

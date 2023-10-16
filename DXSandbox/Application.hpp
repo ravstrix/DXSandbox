@@ -2,6 +2,7 @@
 
 #include "WindowsPlatform.hpp"
 
+#include "CommandLineArgs.hpp"
 #include "IWindowPresenter.hpp"
 
 #include <memory>
@@ -14,7 +15,7 @@ namespace DXSandbox
     class Application final : private IWindowPresenter
     {
     public:
-        explicit Application(HINSTANCE hInstance);
+        explicit Application(HINSTANCE hInstance, PWSTR commandLine);
         ~Application();
 
         int Run();
@@ -30,13 +31,19 @@ namespace DXSandbox
 
     private:
         void Startup();
+        void MakeWindow();
+        void MakeGraphicsSystem();
         void MainLoop();
         bool ProcessWindowMessages();
         void PostMainLoopQuitMessage();
         void Shutdown();
+        void DestroyGraphicsSystem();
+        void DestroyWindow();
 
     private:
         HINSTANCE m_hInstance = nullptr;
+
+        CommandLineArgs m_commandLineArgs;
 
         std::unique_ptr<Window> m_window;
         std::unique_ptr<GraphicsSystem> m_graphicsSystem;

@@ -11,8 +11,11 @@
 
 namespace
 {
-    bool EnableDebugLayer() noexcept
+    bool EnableDebugLayer(const DXSandbox::GraphicsSystem::InitParams& params) noexcept
     {
+        if (!params.enableDebugLayer)
+            return false;
+
         DXSandbox::ComPtr<ID3D12Debug1> d3dDebug;
 
         if (FAILED(D3D12GetDebugInterface(IID_PPV_ARGS(&d3dDebug))))
@@ -26,12 +29,14 @@ namespace
 
 namespace DXSandbox
 {
-    GraphicsSystem::GraphicsSystem(const Window& window)
+    GraphicsSystem::GraphicsSystem(const InitParams& params)
     {
-        CreateFactory();
+        const bool isDebugEnabled = EnableDebugLayer(params);
+
+        CreateFactory(isDebugEnabled);
         CreateDevice();
         CreateCommandQueue();
-        CreateSwapChain(window);
+        CreateSwapChain(params);
         CreateCommandList();
         CreateFence();
     }
@@ -55,9 +60,9 @@ namespace DXSandbox
         WaitForPreviousFrame();
     }
 
-    void GraphicsSystem::CreateFactory()
+    void GraphicsSystem::CreateFactory(bool enableDebug)
     {
-        const UINT factoryFlags = EnableDebugLayer() ? DXGI_CREATE_FACTORY_DEBUG : 0;
+        const UINT factoryFlags = enableDebug ? DXGI_CREATE_FACTORY_DEBUG : 0;
 
         ThrowIfFailed(CreateDXGIFactory2(factoryFlags, IID_PPV_ARGS(&m_factory)));
     }
@@ -111,16 +116,14 @@ namespace DXSandbox
         ThrowIfFailed(m_device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&m_commandQueue)));
     }
 
-    void GraphicsSystem::CreateSwapChain(const Window& window)
+    void GraphicsSystem::CreateSwapChain(const InitParams& params)
     {
         assert(m_factory && m_commandQueue);
 
-        const POINT size = window.ClientSize();
-
         const DXGI_SWAP_CHAIN_DESC1 swapChainDesc =
         {
-            .Width = static_cast<UINT>(size.x),
-            .Height = static_cast<UINT>(size.y),
+            .Width = params.width,
+            .Height = params.height,
             .Format = DXGI_FORMAT_R8G8B8A8_UNORM,
             .SampleDesc = {.Count = 1},
             .BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
@@ -130,11 +133,11 @@ namespace DXSandbox
 
         ComPtr<IDXGISwapChain1> baseSwapChain;
 
-        ThrowIfFailed(m_factory->CreateSwapChainForHwnd(m_commandQueue.Get(), window.Handle(),
+        ThrowIfFailed(m_factory->CreateSwapChainForHwnd(m_commandQueue.Get(), params.hWnd,
                                                         &swapChainDesc, nullptr, nullptr,
                                                         &baseSwapChain));
         ThrowIfFailed(baseSwapChain.As(&m_swapChain));
-        ThrowIfFailed(m_factory->MakeWindowAssociation(window.Handle(), DXGI_MWA_NO_ALT_ENTER));
+        ThrowIfFailed(m_factory->MakeWindowAssociation(params.hWnd, DXGI_MWA_NO_ALT_ENTER));
 
         m_currentBackBufferIndex = m_swapChain->GetCurrentBackBufferIndex();
 
