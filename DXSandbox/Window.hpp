@@ -4,8 +4,6 @@
 
 #include "WindowClass.hpp"
 
-#include <string_view>
-
 namespace DXSandbox
 {
     class IWindowPresenter;
